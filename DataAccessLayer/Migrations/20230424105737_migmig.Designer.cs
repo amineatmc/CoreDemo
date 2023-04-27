@@ -4,6 +4,7 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230424105737_migmig")]
+    partial class migmig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,14 +94,9 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WriterID")
-                        .HasColumnType("int");
-
                     b.HasKey("BlogID");
 
                     b.HasIndex("CategoryID");
-
-                    b.HasIndex("WriterID");
 
                     b.ToTable("Blogs");
                 });
@@ -158,7 +156,8 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("CommentID");
 
-                    b.HasIndex("BlogID");
+                    b.HasIndex("BlogID")
+                        .IsUnique();
 
                     b.ToTable("Comments");
                 });
@@ -196,26 +195,6 @@ namespace DataAccessLayer.Migrations
                     b.HasKey("ContactID");
 
                     b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.NewsLetter", b =>
-                {
-                    b.Property<int>("MailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MailID"));
-
-                    b.Property<string>("Mail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MailID");
-
-                    b.ToTable("NewsLetters");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
@@ -262,22 +241,14 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Concrete.Writer", "Writer")
-                        .WithMany("Blogs")
-                        .HasForeignKey("WriterID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Comment", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.Blog", "Blog")
-                        .WithMany("Comments")
-                        .HasForeignKey("BlogID")
+                        .WithOne("Comment")
+                        .HasForeignKey("EntityLayer.Concrete.Comment", "BlogID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -286,17 +257,13 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.Blog", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Comment")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Navigation("Blog");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.Writer", b =>
-                {
-                    b.Navigation("Blogs");
                 });
 #pragma warning restore 612, 618
         }
