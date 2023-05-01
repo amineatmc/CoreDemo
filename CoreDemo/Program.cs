@@ -24,4 +24,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
 app.Run();
