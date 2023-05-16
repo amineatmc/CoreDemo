@@ -41,6 +41,10 @@ namespace BusinessLayer.Concrete
         {
             return _blogDal.GetAll();
         }
+        public List<Blog> GetLastTreeBlog()
+        {
+            return _blogDal.GetAll().Take(3).ToList();
+        }
 
         public List<Blog> GetBlogListWithCategory()
         {
