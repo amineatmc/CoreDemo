@@ -16,5 +16,17 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public PartialViewResult WriterNawbarPartial()
+        {
+            return PartialView();
+        }
+
+        [AllowAnonymous]
+        public PartialViewResult WriterFooterPartial()
+        {
+            return PartialView();
+        }
     }
 }
