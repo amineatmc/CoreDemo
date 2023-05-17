@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,10 @@ namespace BusinessLayer.Concrete
         {
             return _blogDal.GetListAll(x=>x.BlogID== id);
         }
-      
+      public List<Blog> GetListWithCategoryByWriterBm(int id)
+        {
+            return _blogDal.GetListWithCategoryByWriter(id);
+        }
 
         public List<Blog> GetAll()
         {
@@ -57,7 +62,7 @@ namespace BusinessLayer.Concrete
 
         public void TAdd(Blog t)
         {
-            throw new NotImplementedException();
+            _blogDal.Insert(t);
         }
 
         public void TUpdate(Blog t)
