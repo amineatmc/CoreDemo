@@ -14,6 +14,7 @@ namespace CoreDemo.Controllers
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
+        CategoryManager cm = new CategoryManager(new EfCategoryRepository());
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
@@ -35,7 +36,6 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public IActionResult BlogAdd()
         {
-            CategoryManager cm = new CategoryManager(new EfCategoryRepository());
             List<SelectListItem> categoryValue = (from x in cm.GetList()
                                                   select new SelectListItem
                                                   {
@@ -67,6 +67,38 @@ namespace CoreDemo.Controllers
                 }
             }
             return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult DeleteBlog(int id)
+        {
+            var blogValue=bm.TGetById(id);
+            bm.TDelete(blogValue);
+            return RedirectToAction("BlogListByWriter");
+        }
+
+        [HttpGet]
+        public IActionResult EditBlog(int id) 
+        {
+            List<SelectListItem> categoryValue = (from x in cm.GetList()
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = x.Name,
+                                                      Value = x.CategoryID.ToString(),
+                                                  }).ToList();
+            ViewBag.cv = categoryValue;
+            var blogValue=bm.TGetById(id);
+            return View(blogValue);
+        }
+        [HttpPost]
+        public IActionResult EditBlog(Blog p)
+        {
+            var blogValue = bm.TGetById(p.BlogID);
+            p.CreateDate = blogValue.CreateDate;
+            p.Status = blogValue.Status;
+            p.WriterID = 1;
+            bm.TUpdate(p);
+            return RedirectToAction("BlogListByWriter");
         }
     }
 }
