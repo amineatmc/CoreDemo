@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.ViewComponents.Writer
 {
-    public class WriterMessageNotification : ViewComponent
+    public class WriterAboutOnDashboard : ViewComponent
     {
-        MessageManager mn= new MessageManager(new EfMessageRepository());
+        WriterManager wm = new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
         {
-            string p;
-            p = "test@mail.com";
-            var values = mn.GetInboxLİstByWriter(p);
+            var values = wm.GetWriterById(1);
             return View(values);
         }
     }
