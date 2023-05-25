@@ -17,35 +17,32 @@ namespace BusinessLayer.Concrete
             _messageDal = messageDal;
         }
 
-        public List<Message> GetInboxLİstByWriter(string p)
+        public List<Message2> GetInboxLİstByWriter(int p)
         {
-            return _messageDal.GetListAll(x => x.Receiver == p);
+            return _messageDal.GetListWithMessageByWriter(p);
         }
 
-        public List<Message> GetList()
+        public List<Message2> GetList()
         {
             throw new NotImplementedException();
 
         }
-
-    
-
-        public void TAdd(Message t)
+        public void TAdd(Message2 t)
         {
             throw new NotImplementedException();
         }
 
-        public void TDelete(Message t)
+        public void TDelete(Message2 t)
         {
             throw new NotImplementedException();
         }
 
-        public Message TGetById(int id)
+        public Message2 TGetById(int id)
         {
-            throw new NotImplementedException();
+            return _messageDal.GetById(id);
         }
 
-        public void TUpdate(Message t)
+        public void TUpdate(Message2 t)
         {
             throw new NotImplementedException();
         }
