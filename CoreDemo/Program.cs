@@ -7,14 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-
+//havadurumu çekildi.statistic1
+//https://openweathermap.org/current
 builder.Services.AddSession();
 
 //proje seviyesinde authentication iþlemi//
 builder.Services.AddMvc(conf =>
 {
-    var policy=new AuthorizationPolicyBuilder()
+    var policy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
     conf.Filters.Add(new AuthorizeFilter(policy));
@@ -45,10 +45,17 @@ app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+               name: "areas",
+               pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+             );
+    endpoints.MapControllerRoute(
+               name: "default",
+               pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
 app.Run();
