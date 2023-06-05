@@ -5,8 +5,9 @@
             <input class="form-control" type="text" name="UserName" placeholder="Adınız Soyadınız" required="">
             <input class="form-control" type="text" name="Title" placeholder="Konu" required="">
             <textarea class="form-control" name="Content" placeholder="Yorumunuz" required=""></textarea>
-
-            <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
+            <input type="hidden" name="BlogID" value="@ViewBag.id">
+            <br />
+            <button type="submit" class="btn btn-primary submit">Yorum Yap </button>
         </form>
     </div>
 </div>

@@ -1,4 +1,6 @@
-﻿using CoreDemo.Models;
+﻿using BusinessLayer.Concrete;
+using CoreDemo.Models;
+using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.ViewComponents
@@ -27,5 +29,8 @@ namespace CoreDemo.ViewComponents
             };
             return View(commentValues);
         }
+
+
+    
     }
 }
