@@ -15,7 +15,7 @@ namespace DataAccessLayer.Concrete
         {
             optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS03;database=CoreBlogDb;integrated security=true;TrustServerCertificate=True");
         }
-
+     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            modelBuilder.Entity<Message2>()
@@ -30,6 +30,10 @@ namespace DataAccessLayer.Concrete
                .HasForeignKey(z => z.ReceiverID)
                .OnDelete(DeleteBehavior.ClientSetNull);
             base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<Blog>().ToTable(tb => tb.HasTrigger("AddBlogInRatingTable"));
+            modelBuilder.Entity<Comment>().ToTable(tb => tb.HasTrigger("AddScoreInComment"));
         }
         public DbSet<About> Abouts{ get; set; }
         public DbSet<Blog> Blogs{ get; set; }

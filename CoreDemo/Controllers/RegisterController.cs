@@ -19,22 +19,22 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult Index(Writer writer)
         {
-            WriterValidator wv= new WriterValidator();
-            ValidationResult results= wv.Validate(writer);
-            if (results.IsValid)
-            {
+            //WriterValidator wv= new WriterValidator();
+            //ValidationResult results= wv.Validate(writer);
+            //if (results.IsValid)
+            //{
                 writer.Status = true;
                 writer.About = "Test";
                 wm.TAdd(writer);
                 return RedirectToAction("Index", "Blog");
-            }
-            else
-            {
-                foreach(var item in results.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
+            //}
+            //else
+            //{
+            //    foreach(var item in results.Errors)
+            //    {
+            //        ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            //    }
+            //}
             return View();
         }
     }

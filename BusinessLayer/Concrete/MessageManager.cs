@@ -27,9 +27,15 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
 
         }
+
+        public List<Message2> GetListWithSendMessageByWriter(int p)
+        {
+            return _messageDal.GetListWithSendMessageByWriter(p);
+        }
+
         public void TAdd(Message2 t)
         {
-            throw new NotImplementedException();
+            _messageDal.Insert(t);
         }
 
         public void TDelete(Message2 t)

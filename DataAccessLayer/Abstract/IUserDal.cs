@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface IMessageDal:IGenericDal<Message2>
+    public interface IUserDal :IGenericDal<AppUser>
     {
-        List<Message2> GetListWithMessageByWriter(int id);
-        List<Message2> GetListWithSendMessageByWriter(int id);
     }
 }

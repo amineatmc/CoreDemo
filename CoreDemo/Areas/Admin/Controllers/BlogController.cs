@@ -2,10 +2,12 @@
 using CoreDemo.Areas.Admin.Models;
 using DataAccessLayer.Concrete;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     [Area("Admin")]
     public class BlogController : Controller
     {

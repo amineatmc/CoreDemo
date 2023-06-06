@@ -17,6 +17,8 @@ namespace CoreDemo.Controllers
         [HttpGet]
         public IActionResult AllNotification()
         {
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
             var values = nm.GetList();
             return View(values);
         }

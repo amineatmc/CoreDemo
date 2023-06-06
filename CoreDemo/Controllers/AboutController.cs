@@ -1,14 +1,18 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
 {
-	public class AboutController : Controller
+    [AllowAnonymous]
+    public class AboutController : Controller
 	{
 		AboutManager abm = new AboutManager(new EfAboutRepository());
 		public IActionResult Index()
 		{
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
             var values = abm.GetList();
             return View(values);
 		}

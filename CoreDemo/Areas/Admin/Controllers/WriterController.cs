@@ -1,9 +1,11 @@
 ﻿using CoreDemo.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     [Area("Admin")]
     public class WriterController : Controller
     {

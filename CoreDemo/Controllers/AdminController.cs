@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreDemo.Controllers
 {
+
     public class AdminController : Controller
     {
         [AllowAnonymous]

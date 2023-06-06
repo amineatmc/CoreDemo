@@ -1,4 +1,5 @@
-﻿using CoreDemo.Models;
+﻿using BusinessLayer.Concrete;
+using CoreDemo.Models;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
@@ -20,7 +21,9 @@ namespace CoreDemo.Controllers
         }
         public IActionResult Index()
 		{
-			return View();
+           
+
+            return View();
 		}
 
 		[HttpPost]
@@ -31,7 +34,8 @@ namespace CoreDemo.Controllers
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Index", "Dashboard");
+                 
+                    return RedirectToAction("Index", "Dashboard");
 				}
 				else
 				{
@@ -42,29 +46,12 @@ namespace CoreDemo.Controllers
 
         }
 
-		//[HttpPost]
-		//public async Task<IActionResult> Index(Writer p)
-		//{
-		//	Context c = new Context();
-		//	var dataValue = c.Writers.FirstOrDefault(x => x.Mail == p.Mail && x.Password == p.Password);
-		//	if (dataValue != null)
-		//	{
-		//		var claims = new List<Claim>
-		//		{
-		//			new Claim(ClaimTypes.Name, p.Mail),
+		public async Task<IActionResult> LogOut()
+		{
+			await _signInManager.SignOutAsync();
+			return RedirectToAction("Index","Login" );
+		}
 
-		//		};
-		//		var userIdentity=new ClaimsIdentity(claims,"a");
-		//		ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
-		//		await HttpContext.SignInAsync(principal);
-				
-		//		return RedirectToAction("Index","Dashboard");
-		//	}
-		//	else
-		//	{
-		//		return View();
-		//	}
-		//}
 
 	}
 }

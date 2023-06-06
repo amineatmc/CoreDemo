@@ -28,7 +28,13 @@ builder.Services.AddMvc(conf =>
         .Build();
     conf.Filters.Add(new AuthorizeFilter(policy));
 });
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(100);
+    options.LoginPath = "/Login/Index/";
+    options.SlidingExpiration = true;
+});
 builder.Services.AddMvc();
 //hata mesajlarý dönmemesi için 
 builder.Services.AddAuthentication(

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using System.Security.Claims;
 
 namespace CoreDemo.Controllers
 {
@@ -21,6 +22,7 @@ namespace CoreDemo.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            
             var values = bm.GetBlogListWithCategory();
             return View(values);
         }
@@ -35,7 +37,11 @@ namespace CoreDemo.Controllers
         public IActionResult BlogListByWriter()
         {
             var userMail = User.Identity.Name;
-            var writerID = c.Writers.Where(x => x.Mail == userMail).Select(x => x.WriterID).FirstOrDefault();
+            ViewBag.v = userMail;
+            //var userName = User.Identity.Name;
+            //var userMail = c.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
+            //var writerID = c.Writers.Where(x => x.Mail == userMail).Select(x => x.WriterID).FirstOrDefault();
+            int writerID= Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var values=bm.GetListWithCategoryByWriterBm(writerID);
             return View(values);
         }
@@ -50,6 +56,8 @@ namespace CoreDemo.Controllers
                                                       Value = x.CategoryID.ToString(),
                                                   }).ToList();
             ViewBag.cv=categoryValue;
+            var userMail = User.Identity.Name;
+            ViewBag.v = userMail;
             return View();
         }
 
@@ -58,8 +66,7 @@ namespace CoreDemo.Controllers
         {
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(p);
-            var userMail = User.Identity.Name;
-            var writerID = c.Writers.Where(x => x.Mail == userMail).Select(x => x.WriterID).FirstOrDefault();
+            int writerID = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (results.IsValid)
             {
                 p.Status = true;
@@ -102,8 +109,7 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p)
         {
-            var userMail = User.Identity.Name;
-            var writerID = c.Writers.Where(x => x.Mail == userMail).Select(x => x.WriterID).FirstOrDefault();
+            int writerID = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var blogValue = bm.TGetById(p.BlogID);
             p.CreateDate = blogValue.CreateDate;
             p.Status = blogValue.Status;

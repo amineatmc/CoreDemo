@@ -11,6 +11,7 @@ namespace CoreDemo.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+           
             var values = cm.GetList();
             return View(values);
         }

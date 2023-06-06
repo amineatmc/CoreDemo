@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.ValidationRules
 {
-    public class WriterValidator:AbstractValidator<Writer>
+    public class WriterValidator:AbstractValidator<AppUser>
     {
         public WriterValidator()
         {
-            RuleFor(x=>x.Name).NotEmpty().WithMessage("Yazarın Ad ve Soyad Bilgisi Boş Geçilemez");
-            RuleFor(x => x.Mail).NotEmpty();
-            RuleFor(x=>x.Password).NotEmpty();
-            RuleFor(x=>x.Name).MinimumLength(2).WithMessage("en az iki karakter");
+            RuleFor(x=>x.UserName).NotEmpty().WithMessage("Yazarın Ad ve Soyad Bilgisi Boş Geçilemez");
+            RuleFor(x => x.Email).NotEmpty();
+            RuleFor(x=>x.PasswordHash).NotEmpty();
+            RuleFor(x=>x.UserName).MinimumLength(2).WithMessage("en az iki karakter");
 
         }
     }
