@@ -2,7 +2,7 @@
 @model List<Message2>
 
 @{
-    ViewData["Title"] = "InBox";
+    ViewData["Title"] = "SendBox";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
@@ -18,9 +18,10 @@
                         <div class="file-manager">
                             <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">Mesaj Kutusu</a>
                             <div class="space-25"></div>
-                            <h5>Folders</h5>
+                            <h5>Kategoriler</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
                                 <li><a href="/Admin/AdminMessage/Inbox/"> <i class="fa fa-inbox "></i> Gelen Kutusu <span class="label label-warning float-right">@ViewBag.v</span> </a></li>
+                              @*  <li><a href="/Admin/AdminMessage/Sendbox/"> <i class="fa fa-envelope-o "></i> Giden Kutusu <span class="label label-danger float-right">@ViewBag.v</span> </a></li>*@
                                 <li><a href="/Admin/AdminMessage/Sendbox/"> <i class="fa fa-envelope-o"></i> Giden Kutusu</a></li>
                                 <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Önemli</a></li>
                                 <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Taslak <span class="label label-danger float-right">2</span></a></li>
@@ -54,7 +55,7 @@
                         </div>
                     </form>
                     <h2>
-                        Inbox (@ViewBag.v)
+                        Sendbox (@ViewBag.v)
                     </h2>
                     <div class="mail-tools tooltip-demo m-t-md">
                         <div class="btn-group float-right">
@@ -79,7 +80,7 @@
                                     <td class="check-mail">
                                         <input type="checkbox" class="i-checks">
                                     </td>
-                                    <td class="mail-ontact"><a href="mail_detail.html">@item.SenderUser.Name</a></td>
+                                    <td class="mail-ontact"><a href="mail_detail.html">@item.ReceiverUser.Name</a></td>
                                     <td class="mail-subject"><a href="mail_detail.html">@item.Subject</a></td>
                                     <td class=""><i class="fa fa-paperclip"></i></td>
                                     <td class="text-right mail-date">@(((DateTime)@item.MessageDate).ToString("dd-MMM-yyyy"))</td>
