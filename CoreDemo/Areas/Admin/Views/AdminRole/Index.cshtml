@@ -1,11 +1,10 @@
 ﻿@using EntityLayer.Concrete
-@model List<Comment>
-
+@model List<AppRole>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
-@*<td><a href="#"><i class="fa fa-check text-navy"></i></a></td>*@
+
 <!DOCTYPE html>
 <html>
 
@@ -18,7 +17,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Yorumlar  </h5>
+                        <h5>Roller  </h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -45,11 +44,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Kullanıcı</th>
                                     <th>Başlık</th>
-                                    <th>Blog</th>
-                                    <th>Puan</th>
-                                    <th>Tarih</th>
                                     <th>Sil</th>
                                     <th>Düzenle</th>
 
@@ -59,18 +54,16 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <th>@item.CommentID</th>
-                                        <td>@item.UserName</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.Blog.Title</td>
-                                        <td class="text-navy"> <i class="fa fa-level-up"></i> @item.Score </td>
-                                        <td>@(((DateTime)@item.Date).ToString("dd-MMM-yyyy"))</td>
-                                        <td><a href="#" class="btn btn-outline-danger">Sil</a></td>
-                                        <td><a href="#" class="btn btn-outline-success">Güncelle</a></td>
+                                        <th>@item.Id</th>
+                                        <td>@item.Name</td>
+                                        <td><a href="/Admin/AdminRole/DeleteRole/@item.Id/" class="btn btn-outline-danger">Sil</a></td>
+                                        <td><a href="/Admin/AdminRole/UpdateRole/@item.Id/" class="btn btn-outline-success">Güncelle</a></td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
+                        <a href="/Admin/AdminRole/AddRole/" class="btn btn-outline-primary">Yeni Rol Ekle</a>
+                        <a href="/Admin/AdminRole/UserRoleList/" class="btn btn-outline-info">Kullanıcı Rol Listesi </a>
                     </div>
                 </div>
             </div>
