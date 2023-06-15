@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccessLayer.Concrete
 {
@@ -13,9 +15,11 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS03;database=CoreBlogDb;integrated security=true;TrustServerCertificate=True");
+            //optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS03;database=CoreBlogDb;integrated security=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=CoreBlogDb.mssql.somee.com;database=CoreBlogDb;user=amineeatmc_SQLLogin_1;password=kvowlvto9q; integrated security=true;TrustServerCertificate=True;Trusted_Connection=False");
+            //optionsBuilder.UseSqlServer("workstation id=CoreBlogDb.mssql.somee.com;packet size=4096;user id=amineeatmc_SQLLogin_1;pwd=kvowlvto9q;data source=CoreBlogDb.mssql.somee.com;persist security info=False;initial catalog=CoreBlogDb TrustServerCertificate=True");
+            //workstation id = CoreBlogDb.mssql.somee.com; packet size = 4096; user id = amineeatmc_SQLLogin_1; pwd = kvowlvto9q; data source = CoreBlogDb.mssql.somee.com; persist security info = False; initial catalog = CoreBlogDb
         }
-     
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            modelBuilder.Entity<Message2>()
